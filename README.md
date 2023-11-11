@@ -1,30 +1,30 @@
-# Data Processing using PySpark in Python via CLI
+# Data Pipeline in Databricks
 
-[![CI](https://github.com/nogibjj/IDS-706_rg361_week-10/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/IDS-706_rg361_week-10/actions/workflows/cicd.yml)
+[![CI](https://github.com/nogibjj/IDS-706_rg361_week-11/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/IDS-706_rg361_week-11/actions/workflows/cicd.yml)
 
-This repositroy contains files to process data in ``PySpark`` using ``Python`` and ``CLI``
+This repositroy contains files to process data in ``Databricks`` using ``PySpark``, ``Python``  and ``SQL``
 
-All the queries are automatically ``logged`` in the ``query_logs`` file.
+The repo has been created from [Week-10 Mini-Project](https://github.com/nogibjj/IDS-706_rg361_week-10) and modified as per requirements.
 
-The repo has been created from [Week-5 Mini-Project](https://github.com/nogibjj/IDS-706_rg361_week-5) and modified as per requirements.
-
-Created on on 05-Nov-2023
+Created on on 08-Nov-2023
 
 ## Overview
 
-The repository has the ``main.py`` file which makes use of the files in the mylib folder to perform data processing operations using PySpark. The main.py file can be interacted via ``CLI`` (Command Line Interface) by the user.
+This project performs a sample End-to-End Data Pipeline in Databricks.
+The sample data is loaded from Databricks and the notebooks used for processing are saved in this Github Repository in the ``Notebooks`` folder.
 
-The repository automatically **``logs``** all the queries which are executed in the ``query_logs`` file.
+A Databricks ``workflow`` is setup to run the notbooks in sequence to simulate the End-to-End workflow.
 
-``Github`` actions automatically runs the ``test_main.py`` which triggers the operations and logs them whenever there is an update in the repository.
+``Github`` actions automatically performs the ``CICD`` workflows whenever there is a change in the repository.
 
 ![Schema](resources/schema.png)
 
 ## Instructions
 
-Create a Codespace on main which will initialize the enviroment with the required packages and settings to execute the codes.
+The Primary data and operations happen in the Databricks platform.
 
-The ``main.py`` file accepts the commands via ``CLI``, the CLI are of the form:
+We use the ``million songs`` sample dataset available in databricks for this process.
+
 
 ```console
 python main.py command args
