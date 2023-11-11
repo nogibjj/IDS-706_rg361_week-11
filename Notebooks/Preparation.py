@@ -29,5 +29,3 @@
 # MAGIC   songs
 
 # COMMAND ----------
-
-
