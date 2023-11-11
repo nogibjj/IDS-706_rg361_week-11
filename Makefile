@@ -2,17 +2,17 @@ install:
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 
-test:
-	python -m pytest -vv --cov=main --cov=mylib test_*.py
-
 format:	
-	black mylib/*.py 
-	black *.py
+	find . -type f -name "*.py" -exec black {} \;
+	find . -type f -name "*.ipynb" -exec nbqa black {} \;
+
 
 lint:
-	ruff check *.py mylib/*.py
+	find . -type f -name "*.py" -exec ruff check {} \;
+	find . -type f -name "*.ipynb" -exec nbqa ruff {} \;
 
-deploy:
-	#deploy goes here
-		
-all: install test format lint deploy
+test:
+	# python -m pytest -vv --cov=codes/project_codes codes/test_codes/*.py
+	# python -m pytest --nbval codes/project_codes/*.ipynb 
+
+all : install test format lint 
