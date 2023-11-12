@@ -25,72 +25,71 @@ The Primary data and operations happen in the Databricks platform.
 
 We use the ``million songs`` sample dataset available in databricks for this process.
 
+4 Notebooks have been created to perform the following tasks or steps in the pipeline:
 
-```console
-python main.py command args
-```
-the possible commands and their relevant arguments are:
-1. ``create_data``: To create CSV file in the ``Data`` folder from the given source.<br>Args: (source, file_name, auto)
-2. ``delete_data``: To delete the CSV file.<br>Args: (file_name, auto)
-3. ``clear_log``: To clear the query_logs file.<br>Args: (log_file)
-4. ``query``: Query to execute on the Dataset using PySpark
+1. ``EDA``: To get an overview of the data, this is only exploratory in nature and is **NOT** a part of the Final Workflow
+![EDA](resources/nb_eda.png)
 
-**Notes:** 
-- All the arguments to the commands are optional as default values are set in the functions.
-- The "auto" argument specfies to the function if the user is directly providing the full path (F) or wants the funtion to use the default path (T). Default value for auto is T
+2. ``Ingestion``: This notebook loads the data from the sample dataset and saves it as ``songs`` table in Databricks
+![EDA](resources/nb_ingestion.png)
 
-## Sample Execution and Test
-  **Sample Execution:** 
-  1. Query command is used without any arguments, so the average of the price column is returned:
+3. ``Preparation``: This notebook contains the SQL code to process the raw data in ``songs`` and stores it as ``songs_prepared`` in databricks.
+![EDA](resources/nb_preparation.png)
 
-   ![Auto Query](resources/query_auto.png)
-
-  2. Custom Query is passed and returns the expected results:
-  
-     ![Auto Query](resources/query_manual.png)
-   
-**Testing:** "make test" command is run to verify all functionalities are working as expected and to see if the operations are being performed.
-
-**Note:** Coverage is intentioanlly not kept at 100% as we do not call the clear_log funtion which would clear the logs.
-
-![Test Execution](resources/test.png)
+4. ``Analyze``: This notebook has some sample queries to view data from the ``songs_prepared`` dataset.
+![EDA](resources/nb_analyze.png)
 
 
-## Contents
+## Workflows
+There are 2 workflows which happen in this project, the Data worflow which happens in Databricks and the CICD worflow which happens in Gtihub.
 
-### 1. query_logs
-  Whenever a  PsSpark operation is performed, the query is automatically logged in the query_logs file with the timestamp for future reference and use. The log file can be cleared using the ``clear_log`` command
+### Data Worflow
+A simple workflow ``Data_Workflow`` has been setup in Databricks which performs the following 3 actions using the corresponding notebooks as mentioned above:
+1. Ingestion
+2. Preparation
+3. Analyze
 
-### 2. README.md
-   contains the information about the repository and instructions for using it
-   
-### 3. requirements.txt
-   contains the list of packages and libraries which are required for running the project. These are intalled and used in the virtual environment and Github actions.
-   
-### 4. .github/workflows
-   github actions are used to automate the following processes whenever a change is made to the files in the repository:
+Sucessful execution of Databricsk Workflow:
+![Data Workflow](resources/workflow.png)
+
+**Note**: The workflow is set to be manually triggered to save costs.
+
+### CICD Workflow
+github actions are used to automate the following processes whenever a change is made to the files in the repository:
    - ``install`` : installs the packages and libraries mentioned in the requirements.txt
    - ``test`` : uses ``pytest`` to test the python script
       
-      **Note:** this action automatically triggers the sample operations whenever any changes are made in the repository
+      **Note:** Currently there is no test setup since the files and workflow runs in Databricks.
      
    - ``format`` : uses ``black`` to format the python files
    - ``lint`` : uses ``ruff`` to lint the python files
-   
-     
-   **Note** -if all the processes run successfully the following output will be visible in github actions:
+
+**Note** -if all the processes run successfully the following output will be visible in github actions:
    ![Success Build](resources/build.png)
+
    
-### 5. Makefile
+## Contents
+The Github Repository Contains the following items:
+
+### 1. README.md
+   contains the information about the repository and instructions for using it
+   
+### 2. requirements.txt
+   contains the list of packages and libraries which are required for running the project. These are intalled and used in the virtual environment and Github actions.
+   
+### 3. .github/workflows
+  Contains the ``cicd.yml`` file which has the steps and instructions for the Github CICD workflow (using Github Actions)
+ 
+### 4. Makefile
    contains the instructions and sequences for the processes used in github actions and .devcontainer for creating the virtual environment
    
-### 6. .devcontainer
+### 5. .devcontainer
    contains the ``dockerfile`` and ``devcontainer.json`` files which are used to build and define the setting of the virtual environment (codespaces - python) for running the codes.
 
-### 7. Data
-   The CSV files genereated by ``create_data`` are stored here by default for quick access and reference and can be delted using the ``delete_data`` command
+### 6. Notebooks
+   The 4 notebooks which are mentioned earlier are stored in the ``Notebooks`` folder in this Github repository so as to have version control and CICD
 
-### 8. resources 
+### 7. resources 
    contains additonal files which are used in the README
 
 
