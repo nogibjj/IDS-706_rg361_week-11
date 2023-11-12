@@ -34,7 +34,7 @@ We use the ``million songs`` sample dataset available in databricks for this pro
 ![EDA](resources/nb_ingestion.png)
 
 3. ``Preparation``: This notebook contains the SQL code to process the raw data in ``songs`` and stores it as ``songs_prepared`` in databricks.
-![EDA](resources/nb_preparation.png)
+![EDA](resources/nb_processing.png)
 
 4. ``Analyze``: This notebook has some sample queries to view data from the ``songs_prepared`` dataset.
 ![EDA](resources/nb_analyze.png)
